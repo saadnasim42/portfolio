@@ -1,24 +1,59 @@
-import { education, skillGroups } from "@/data/portfolio";
-import { Section } from "./Section";
+"use client";
+
+import { useState } from "react";
+import { skillCategories } from "@/data/portfolio";
+import { SectionHeading } from "./SectionHeading";
+
+const filters = [
+  { id: "all", label: "All" },
+  ...skillCategories.map((c) => ({ id: c.id, label: c.title })),
+];
 
 export function Skills() {
+  const [active, setActive] = useState("all");
+
+  const visible =
+    active === "all"
+      ? skillCategories
+      : skillCategories.filter((c) => c.id === active);
+
   return (
-    <>
-      <Section id="skills" label="Expertise" title="Skills & tools">
-        <div className="grid gap-6 sm:grid-cols-2">
-          {skillGroups.map((group) => (
-            <div
-              key={group.title}
-              className="rounded-2xl border border-white/10 bg-white/[0.03] p-6"
+    <section id="skills" className="scroll-mt-24 border-t border-slate-800/60 py-24">
+      <div className="mx-auto max-w-6xl px-6 lg:px-8">
+        <SectionHeading
+          label="Skills"
+          title="Technical Toolkit"
+          description="Languages, frameworks, tools, and platforms I use across the full stack."
+        />
+
+        <div className="mb-8 flex flex-wrap gap-2">
+          {filters.map((f) => (
+            <button
+              key={f.id}
+              type="button"
+              onClick={() => setActive(f.id)}
+              className={`rounded-lg px-4 py-2 text-sm font-medium transition ${
+                active === f.id
+                  ? "bg-blue-600 text-white"
+                  : "border border-slate-700 text-slate-400 hover:border-slate-500 hover:text-white"
+              }`}
             >
-              <h3 className="text-sm font-semibold uppercase tracking-wider text-zinc-500">
+              {f.label}
+            </button>
+          ))}
+        </div>
+
+        <div className="grid gap-6 sm:grid-cols-2">
+          {visible.map((group) => (
+            <div key={group.id} className="card-surface p-6">
+              <h3 className="text-xs font-semibold uppercase tracking-widest text-slate-500">
                 {group.title}
               </h3>
               <div className="mt-4 flex flex-wrap gap-2">
                 {group.skills.map((skill) => (
                   <span
                     key={skill}
-                    className="rounded-full border border-white/10 px-3 py-1 text-sm text-zinc-300 transition hover:border-teal-500/50 hover:text-teal-400"
+                    className="rounded-md border border-slate-700/80 bg-slate-900/40 px-2.5 py-1 text-sm text-slate-300 transition hover:border-blue-500/40 hover:text-blue-300"
                   >
                     {skill}
                   </span>
@@ -27,19 +62,7 @@ export function Skills() {
             </div>
           ))}
         </div>
-      </Section>
-
-      <section className="pb-20">
-        <div className="mx-auto max-w-6xl px-6">
-          <div className="rounded-2xl border border-white/10 bg-gradient-to-br from-teal-500/10 to-violet-500/10 p-8">
-            <p className="font-mono text-sm text-teal-400">Education</p>
-            <h3 className="font-display mt-2 text-2xl font-bold text-white">
-              {education.school}
-            </h3>
-            <p className="mt-1 text-zinc-400">{education.degree}</p>
-          </div>
-        </div>
-      </section>
-    </>
+      </div>
+    </section>
   );
 }

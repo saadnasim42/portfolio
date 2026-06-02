@@ -1,60 +1,129 @@
-import { profile } from "@/data/portfolio";
+import {
+  heroBadges,
+  profile,
+  stats,
+  targetingRoles,
+  techStack,
+  typingPhrases,
+} from "@/data/portfolio";
+import { TypingText } from "./TypingText";
 
 export function Hero() {
   return (
-    <section className="relative flex min-h-screen items-center pt-16">
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -left-32 top-1/4 h-96 w-96 rounded-full bg-teal-500/10 blur-3xl" />
-        <div className="absolute -right-32 bottom-1/4 h-80 w-80 rounded-full bg-violet-500/10 blur-3xl" />
-      </div>
+    <section className="relative min-h-screen overflow-hidden pt-16">
+      <div className="pointer-events-none absolute inset-0 grid-bg" />
+      <div className="pointer-events-none absolute -left-40 top-20 h-[500px] w-[500px] glow-orb" />
+      <div className="pointer-events-none absolute -right-40 bottom-0 h-[400px] w-[400px] glow-orb opacity-60" />
 
-      <div className="relative mx-auto max-w-6xl px-6 py-24">
-        <p className="mb-4 font-mono text-sm text-teal-400">
-          Full Stack Developer · 5+ years
+      <div className="relative mx-auto max-w-6xl px-6 pb-20 pt-16 lg:px-8 lg:pt-24">
+        <div className="mb-8 flex flex-wrap gap-2">
+          {heroBadges.map((badge) => (
+            <span
+              key={badge}
+              className="rounded-full border border-slate-700/80 bg-slate-900/60 px-3 py-1 text-xs font-medium text-slate-400"
+            >
+              {badge}
+            </span>
+          ))}
+        </div>
+
+        <p className="text-sm font-medium uppercase tracking-widest text-blue-400">
+          {profile.title}
         </p>
-        <h1 className="font-display max-w-4xl text-5xl font-bold leading-tight tracking-tight text-white sm:text-6xl lg:text-7xl">
-          Hi, I&apos;m{" "}
-          <span className="bg-gradient-to-r from-teal-300 to-emerald-400 bg-clip-text text-transparent">
+
+        <h1 className="font-display mt-4 max-w-4xl text-4xl font-bold leading-[1.1] tracking-tight text-white sm:text-5xl lg:text-6xl">
+          <span className="block text-slate-400 text-2xl sm:text-3xl font-semibold mb-2">
+            Hi, I&apos;m
+          </span>
+          <span className="bg-gradient-to-r from-white via-blue-100 to-blue-400 bg-clip-text text-transparent">
             {profile.name}
           </span>
         </h1>
-        <p className="mt-6 max-w-2xl text-xl text-zinc-400">{profile.tagline}</p>
-        <p className="mt-4 max-w-2xl text-base leading-relaxed text-zinc-500">
-          {profile.summary}
+
+        <div className="mt-6 min-h-[2rem]">
+          <TypingText phrases={typingPhrases} />
+        </div>
+
+        <p className="mt-6 max-w-2xl text-base leading-relaxed text-slate-400 sm:text-lg">
+          {profile.tagline}
         </p>
 
-        <div className="mt-10 flex flex-wrap gap-4">
+        <div className="mt-10 flex flex-wrap gap-3">
           <a
             href="#projects"
-            className="rounded-full bg-teal-500 px-6 py-3 text-sm font-semibold text-[#0c0f14] transition hover:bg-teal-400"
+            className="rounded-lg bg-blue-600 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-blue-600/25 transition hover:bg-blue-500"
           >
-            View my work
+            View Projects
           </a>
           <a
             href={`mailto:${profile.email}`}
-            className="rounded-full border border-white/20 px-6 py-3 text-sm font-semibold text-white transition hover:border-teal-400/50 hover:text-teal-400"
+            className="rounded-lg border border-slate-600 px-6 py-3 text-sm font-semibold text-slate-200 transition hover:border-blue-500/50 hover:text-white"
           >
-            Get in touch
+            Let&apos;s Talk
+          </a>
+          <a
+            href="#contact"
+            className="rounded-lg border border-slate-700 bg-slate-900/50 px-6 py-3 text-sm font-semibold text-slate-300 transition hover:border-slate-500"
+          >
+            Contact Me
           </a>
         </div>
 
-        <div className="mt-16 grid grid-cols-2 gap-6 sm:grid-cols-4">
-          {[
-            { value: "5+", label: "Years experience" },
-            { value: "6+", label: "Major projects" },
-            { value: "MERN", label: "& PHP stack" },
-            { value: "AWS", label: "Cloud ready" },
-          ].map((stat) => (
-            <div
-              key={stat.label}
-              className="rounded-2xl border border-white/10 bg-white/5 p-4"
+        <div className="mt-10 flex flex-wrap gap-2">
+          {techStack.map((tech) => (
+            <span
+              key={tech}
+              className="rounded-md border border-slate-700/60 bg-slate-900/40 px-3 py-1.5 text-xs font-medium text-slate-400"
             >
-              <p className="font-display text-2xl font-bold text-teal-400">
-                {stat.value}
-              </p>
-              <p className="mt-1 text-sm text-zinc-500">{stat.label}</p>
-            </div>
+              {tech}
+            </span>
           ))}
+        </div>
+
+        <div className="mt-16">
+          <p className="mb-6 text-xs font-semibold uppercase tracking-widest text-slate-500">
+            By the numbers
+          </p>
+          <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+            {stats.map((stat) => (
+              <div key={stat.label} className="card-surface p-5 text-center sm:text-left">
+                <p className="font-display text-3xl font-bold text-blue-400">
+                  {stat.value}
+                </p>
+                <p className="mt-2 text-sm leading-snug text-slate-500">
+                  {stat.label}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="mt-12">
+          <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-slate-500">
+            Targeting
+          </p>
+          <div className="flex flex-wrap gap-2">
+            {targetingRoles.map((role) => (
+              <span
+                key={role}
+                className="rounded-full border border-blue-500/20 bg-blue-500/5 px-3 py-1 text-xs text-blue-300/90"
+              >
+                {role}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        <p className="mt-10 text-sm text-slate-500">{profile.educationLine}</p>
+
+        <div className="mt-16 flex justify-center">
+          <a
+            href="#about"
+            className="flex flex-col items-center gap-2 text-xs text-slate-500 transition hover:text-blue-400"
+          >
+            <span>Scroll</span>
+            <span className="block h-8 w-px bg-gradient-to-b from-blue-500/50 to-transparent" />
+          </a>
         </div>
       </div>
     </section>

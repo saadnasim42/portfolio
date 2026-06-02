@@ -1,5 +1,7 @@
 import { About } from "@/components/About";
+import { Capabilities } from "@/components/Capabilities";
 import { Contact } from "@/components/Contact";
+import { Education } from "@/components/Education";
 import { Experience } from "@/components/Experience";
 import { Footer } from "@/components/Footer";
 import { Header } from "@/components/Header";
@@ -14,9 +16,11 @@ export default function Home() {
       <main>
         <Hero />
         <About />
-        <Experience />
-        <Projects />
         <Skills />
+        <Projects />
+        <Experience />
+        <Education />
+        <Capabilities />
         <Contact />
       </main>
       <Footer />

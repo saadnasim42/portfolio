@@ -1,33 +1,53 @@
-import { profile } from "@/data/portfolio";
-import { Section } from "./Section";
+import { aboutCards, glance, profile } from "@/data/portfolio";
+import { SectionHeading } from "./SectionHeading";
 
 export function About() {
   return (
-    <Section id="about" label="About me" title={profile.title}>
-      <div className="grid gap-10 lg:grid-cols-2">
-        <p className="text-lg leading-relaxed text-zinc-400">
-          I&apos;m a senior full-stack developer specializing in the MERN stack and
-          PHP/Laravel ecosystems. I design and ship production systems — from REST
-          APIs and admin dashboards to multi-tenant SaaS and eCommerce — with a
-          focus on clean architecture, performance, and maintainable code.
-        </p>
-        <div className="grid gap-4 sm:grid-cols-2">
-          {[
-            "Healthcare & Education platforms",
-            "E-Commerce & payment integrations",
-            "Multi-tenant SaaS & enterprise workflows",
-            "RL/AI tooling & benchmark platforms",
-          ].map((item) => (
-            <div
-              key={item}
-              className="flex items-start gap-3 rounded-xl border border-white/10 bg-white/[0.03] p-4"
-            >
-              <span className="text-teal-400">→</span>
-              <span className="text-sm text-zinc-300">{item}</span>
+    <section id="about" className="scroll-mt-24 border-t border-slate-800/60 py-24">
+      <div className="mx-auto max-w-6xl px-6 lg:px-8">
+        <SectionHeading
+          label="About"
+          title="I ship full-stack products. End to end."
+          description={profile.summary}
+        />
+
+        <div className="grid gap-10 lg:grid-cols-3">
+          <div className="space-y-4 lg:col-span-2">
+            {aboutCards.map((card) => (
+              <div
+                key={card.title}
+                className="card-surface p-6 transition hover:border-blue-500/30"
+              >
+                <h3 className="font-display text-lg font-semibold text-white">
+                  {card.title}
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-slate-400">
+                  {card.body}
+                </p>
+              </div>
+            ))}
+          </div>
+
+          <div>
+            <p className="mb-4 text-xs font-semibold uppercase tracking-widest text-slate-500">
+              At a glance
+            </p>
+            <div className="grid grid-cols-2 gap-3">
+              {glance.map((item) => (
+                <div
+                  key={item.label}
+                  className="card-surface p-4 text-center"
+                >
+                  <p className="font-display text-sm font-bold text-blue-400">
+                    {item.label}
+                  </p>
+                  <p className="mt-1 text-xs text-slate-500">{item.sub}</p>
+                </div>
+              ))}
             </div>
-          ))}
+          </div>
         </div>
       </div>
-    </Section>
+    </section>
   );
 }
